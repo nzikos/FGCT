@@ -1,8 +1,15 @@
 function features=extractFeatures(filename)
-% extractFeatures  FGCT method
+% extractFeatures  Method for extracting SIFT features from image
 %   features=extractFeatures(filename)
-%   adds matrices A and B.
-%
+%   Read thes images filename transforms it to grayscale and extracts SIFT
+%   features. The output features is a structure
+%      features.frames: Matrix where each vector refers to the position,
+%      the scale and the principal orientation of the feature.
+%      features.descriptors: Matrix where each vector refers to the 128
+%      element descriptor.
+%      features.file: Is string with images name.
+%      features.numFeatures: Total number of features.
+% 
 % Examples:
 %   features=extractFeatures('test.jpg');
 %
@@ -15,5 +22,5 @@ function features=extractFeatures(filename)
 
 I = double(rgb2gray(imread(filename)))/256 ;
 [features.frames,features.descriptors] = sift(I, 'Verbosity', 0);
-features.file=filename;
-features.numFeatures=size(features.frames,2);
+features.file = filename;
+features.numFeatures = size(features.frames,2);

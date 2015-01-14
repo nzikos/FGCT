@@ -1,7 +1,9 @@
 function features=extractFeaturesBulk(directory)
-% extractFeaturesBulk  FGCT method
+% extractFeaturesBulk  Extract SIFT features from all images in a directory
 %   features=extractFeaturesBulk(directory)
-%   adds matrices A and B.
+%   direcory: string with directory
+%   features: Vector of structures as defined in extractFeatures.m. Each
+%   element refers each image inside directory.
 %
 % Examples:
 %   features=extractFeaturesBulk('./sampleData/test/')
@@ -17,8 +19,8 @@ dirList=dir(directory);
 
 j=0;
 for i=1:length(dirList)
-    if ~dirList(i).isdir && ~strncmpi(dirList(i).name,'.',1)
-        j=j+1;
-        features(j)=extractFeatures([directory dirList(i).name]);
+    if ~isempty(strfind(dirList(i).name, '.jpg')) || ~isempty(strfind(dirList(i).name, '.png'))
+        j = j+1;
+        features(j) = extractFeatures([directory dirList(i).name]);
     end
 end

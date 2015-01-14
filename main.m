@@ -1,7 +1,8 @@
-% FGCT  FGCT method
-%   correspondance=FGCT(testFeatures,logoFeatures,pairs,alpha,sigma,geomthr)
-%   adds matrices A and B.
-%
+% main  Demostrates the FGCT method
+%   Extract test and logo image features, claculates the matching
+%   descriptors and then calculates using FGCT the geometric consistency. 
+%   IMPORTANT: At first run you need to compile first the SIFT library.
+%   For compiling the SIFT library run the sift_compile.m on SIFTlib folder.
 %
 %% AUTHOR    : Nikos Zikos
 %% $DATE     : 13-Jan-2015 15:53:25 $
@@ -23,10 +24,10 @@ logoImages=extractFeaturesBulk('./sampleData/logos/');
 fprintf('done\n')
 
 % FGCT Parameters
-dthr=0.4;
-alpha=1;
-sigma=6;
-geomthr=0.3;
+dthr    = 0.4;
+alpha   = 1;
+sigma   = 6;
+geomthr = 0.3;
 
 fprintf('Calculating correspondances for every test image for every logo...')
 tic
@@ -40,8 +41,9 @@ for i=1:length(testImages);
         correspondance(i,j) = FGCT(testImages(i),logoImages(j),pairs,alpha,sigma,geomthr);
     end
 end
-d=toc;
+d = toc;
 fprintf('done\n')
 disp(['Average execution time: ' num2str(1000*d/(prod(size(correspondance)))) 'ms per image'])
 
-bar(correspondance)
+bar(correspondance);grid on
+legend('Class 1','Class 2')
