@@ -23,8 +23,8 @@ fprintf('done\n')
 
 % FGCT Parameters
 dthr    = 0.4;
-alpha   = 1.1;
-sigma   = 3;
+alpha   = 1.2;
+sigma   = 4;
 
 fprintf('Calculating correspondances for every test image for every logo...')
 tic
