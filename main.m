@@ -12,9 +12,7 @@
 
 clear all;clc;
 addpath('SIFTlib')
-
-disp('IMPORTANT: At first run you need to compile first the SIFT library.')
-disp('For compiling the SIFT library run the sift_compile.m on SIFTlib folder.')
+checkCompilation();
 
 fprintf('Extracting test image SIFT features...')
 testImages=extractFeaturesBulk('./sampleData/test/');
@@ -25,8 +23,8 @@ fprintf('done\n')
 
 % FGCT Parameters
 dthr    = 0.4;
-alpha   = 1.5;
-sigma   = 4;
+alpha   = 1.1;
+sigma   = 3;
 
 fprintf('Calculating correspondances for every test image for every logo...')
 tic
