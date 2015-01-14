@@ -16,11 +16,13 @@ function features=extractFeaturesBulk(directory)
 %% FILENAME  : extractFeaturesBulk.m
 
 dirList=dir(directory);
-
+h = waitbar(0,'Extracting features');
 j=0;
 for i=1:length(dirList)
+    waitbar(i/length(dirList),h,['Extracting features from: ' directory])
     if ~isempty(strfind(dirList(i).name, '.jpg')) || ~isempty(strfind(dirList(i).name, '.png'))
         j = j+1;
         features(j) = extractFeatures([directory dirList(i).name]);
     end
 end
+close(h);pause(0.01)

@@ -25,9 +25,8 @@ fprintf('done\n')
 
 % FGCT Parameters
 dthr    = 0.4;
-alpha   = 1;
-sigma   = 6;
-geomthr = 0.3;
+alpha   = 1.5;
+sigma   = 4;
 
 fprintf('Calculating correspondances for every test image for every logo...')
 tic
@@ -38,12 +37,12 @@ for i=1:length(testImages);
         % the process time is reduced about 10 times.
         pairs = matchFeatures(testImages(i),logoImages(j),dthr);
         % Procedure that calculate the correspondance using FGCT
-        correspondance(i,j) = FGCT(testImages(i),logoImages(j),pairs,alpha,sigma,geomthr);
+        correspondance(i,j) = FGCT(testImages(i),logoImages(j),pairs,alpha,sigma);
     end
 end
 d = toc;
 fprintf('done\n')
-disp(['Average execution time: ' num2str(1000*d/(prod(size(correspondance)))) 'ms per image'])
+disp(['Average execution time: ' num2str(1000*d/(numel(correspondance))) 'ms per image'])
 
 bar(correspondance);grid on
 legend('Class 1','Class 2')

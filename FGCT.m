@@ -1,4 +1,4 @@
-function correspondance=FGCT(testFeatures,logoFeatures,pairs,alpha,sigma,geomthr)
+function correspondance=FGCT(testFeatures,logoFeatures,pairs,alpha,sigma)
 % FGCT  FGCT method
 %   correspondance=FGCT(testFeatures,logoFeatures,pairs,alpha,sigma,geomthr)
 %   Calculates the geometric consistency using FGCT mentod.
@@ -8,10 +8,8 @@ function correspondance=FGCT(testFeatures,logoFeatures,pairs,alpha,sigma,geomthr
 %       extractFeature.m
 %       pairs: Structure with matching indeces as described in
 %       matchFeatures.m
-%       alpha: Parameter regulates the geometry consistency (0..1).
+%       alpha: Parameter regulates the geometry consistency (0..2).
 %       sigma: Standard deviation refers to the likelyhood.
-%       geomthr: Threshold defines the number corresponding features that
-%       form a consistent geometry.
 %       correspondance: percentage of the corresponding features by the
 %       total number of logo features.
 %  
@@ -57,13 +55,10 @@ while (norm(dK,2)>10^-5)
 end
 
 % Calculate Correspondance
-[~,idx]=sort(K,'descend');
-for i=1:length(idx)
-    a = K*0;
-    a(idx(1:i)) = 1/i;
-    consistency = a'*D*a;
-    if (consistency<geomthr);break;end
-end
-
-correspondance = i/logoFeatures.numFeatures;
-
+[Ks,idx]=sort(K,'descend');
+Q=length(K);
+Ks=repmat(Ks,1,Q) .* triu(ones(Q),0);
+Dtemp=D(idx,idx);
+normVector=Q./[1:Q]';
+consistency=diag(Ks'*Dtemp*Ks).*normVector;
+correspondance=sum(consistency)/logoFeatures.numFeatures;
