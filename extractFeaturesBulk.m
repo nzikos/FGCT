@@ -26,6 +26,7 @@ for i=1:length(dirList)
     end
 end
 
+% Instead can be used: parfor
 for i=1:length(dirList2)
     features(i) = extractFeatures([directory dirList2(i).name]);
     waitbar(i/length(dirList2),h,['Extracting features from: ' directory])

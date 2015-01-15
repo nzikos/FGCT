@@ -28,15 +28,18 @@ sigma   = 4;
 
 fprintf('Calculating correspondances for every test image for every logo...')
 tic
-for i=1:length(testImages);
+% It can be used: parfor
+for i=1:length(testImages)
+    temp=zeros(1,length(logoImages));
     for j=1:length(logoImages)
         % Procedure to match features between image and logo
         % Matching is done using exhaustive search. Using LSH methods
         % the process time is reduced about 10 times.
         pairs = matchFeatures(testImages(i),logoImages(j),dthr);
         % Procedure that calculate the correspondance using FGCT
-        correspondance(i,j) = FGCT(testImages(i),logoImages(j),pairs,alpha,sigma);
+        temp(1,j) = FGCT(testImages(i),logoImages(j),pairs,alpha,sigma);
     end
+    correspondance(i,:) = temp;
 end
 d = toc;
 fprintf('done\n')
