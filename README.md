@@ -19,3 +19,8 @@ a consistent geometry on image and logo feature sets.
 
 IMPORTANT: At first run you need to compile first the SIFT library.
 For compiling the SIFT library run the sift_compile.m on SIFTlib folder.
+
+## References
+
+N. Zikos and A. Delopoulos, "Fast geometric consistency test for real time logo detection," Content-Based Multimedia Indexing (CBMI), 2015 13th International Workshop on, Prague, 2015, pp. 1-6.
+doi: 10.1109/CBMI.2015.7153636
